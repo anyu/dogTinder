@@ -218,6 +218,8 @@ app.delete('/dog-tinder-api/removeAnimal', (req, res) => {
 });
 
 app.get('/gCloudVision', (req,res) => {
+  console.log("hitting gCloudVision api");
+
   var matches = [];
   visionClient.detectLabels(req.query.imageURL)
     .then((results) => {

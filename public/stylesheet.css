@@ -319,3 +319,11 @@ textarea {
 #uploadedPic button {
   margin-bottom: 30px;
 }
+
+#imageMatchResult {
+  font-size: 18px;
+}
+
+#imageMatchResult span {
+  font-weight: bold;
+}
