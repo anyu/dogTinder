@@ -216,7 +216,7 @@ class AddAnimalForm extends React.Component {
       <div className="dog-form-container"><h1>Dog Tinder</h1>
         <h3>Add a Pet to DogTinder</h3>
         <p>Please describe the animal and enter your shelter's contact information.</p>
-        <form onSubmit={this.handleSubmit} >
+        <form onClick={ (e) => { e.preventDefault()}}>
           <div className="form-group dog-form-short">
             <label className="form-group">Dog's Name</label>
             <input className="form-control" name="name" type="text" onChange={this.handleChange}/>
@@ -386,7 +386,9 @@ class AddAnimalForm extends React.Component {
             <label className="form-group">Phone (xxx-xxx-xxxx)</label>
             <input className="form-control" name="phone" type="text" onChange={this.handleChange}/>
           </div>
-          <input type="submit" value="Submit"/>
+
+          <input type="submit" value="Submit" onClick={this.handleSubmit} />
+
         </form>
         {this.state.zipError ? (<div >The zipcode field is not correct, please review</div>) : null}
         {this.state.phoneError ? (<div >The phone field is not correct, please review</div>) : null}
