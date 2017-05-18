@@ -248,7 +248,7 @@ app.get('/logout', (req, res) => {
 })
 
 app.post('/dog-tinder-api/dog', (req, res) => {
-  dogObj = req.body.data
+  dogObj = req.body;
   dbUtils.addDogToDatabase(dogObj, () => {})
   res.send(201);
 })
