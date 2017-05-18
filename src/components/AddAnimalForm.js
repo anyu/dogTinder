@@ -44,6 +44,7 @@ class AddAnimalForm extends React.Component {
       uploadedFile: null,
       uploadedFileCloudinaryUrl: '',
       uploadingImageSpinner: false,
+      imageMatchSpinner: false,
       imageRecogMatch: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -179,6 +180,10 @@ class AddAnimalForm extends React.Component {
   }
 
   recognizeImage(fileName) {
+    console.log("recognizeImage called");
+    this.setState({
+      imageMatchSpinner: true
+    })
     axios.get('/gCloudVision', {
       params: {
         imageURL: fileName
@@ -186,7 +191,8 @@ class AddAnimalForm extends React.Component {
     })
     .then((response) => {
         this.setState({
-          imageRecogMatch: response.data
+          imageRecogMatch: response.data,
+          imageMatchSpinner: false
         })
       })
       .catch((error) => {
@@ -245,21 +251,28 @@ class AddAnimalForm extends React.Component {
             {this.state.uploadingImageSpinner ? (
               <div><i className="kennel-spin fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
             ) : (
-              <div id="uploadedPic">
+              <div>
                 {this.state.uploadedFileCloudinaryUrl === '' ? null :
-                <div>
+                <div id="uploadedPic">
                   <img src={this.state.uploadedFileCloudinaryUrl} />
                     <button onClick={ ()=> this.recognizeImage(this.state.uploadedFileCloudinaryUrl) }>I'm a stray. Identify me!!</button>
                   </div>
                   }
                 </div>
               )}
+
+              {this.state.imageMatchSpinner ? (
+                <div><i className="kennel-spin fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+              ) : (
+              <div>
               {qualityImageRecogMatches[0] ? (
                 qualityImageRecogMatches.map((match, index) => {
                   return (
-                    <div id="imageMatchResult" key={index}>{match}</div>
+                    <div id="imageMatchResult" key={index}>This lil pup is probably a: <span>{match}</span></div>
                   )
                 })) : null}
+              </div>
+            )}
             </div>
           <div className="form-group dog-form-x-short">
             <select className="form-control" name="mix" onChange={this.handleChange}>
