@@ -49,6 +49,7 @@ app.get('/', (request, response) => {
   response.sendFile(path.resolve(__dirname, "./public/_index.html"));
 });
 
+
 // signup/login
 app.get('/auth/facebook',
   passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login'}));
@@ -136,7 +137,6 @@ app.get('/dog-tinder-api/list', (req, res) => {
           dogTinderDogs.push({id: dogId});
         }
       });
-
 
       petFinderFetch.getList(petFinderDogs, function(results) {
         petFinderDogs = results;
@@ -249,8 +249,13 @@ app.get('/logout', (req, res) => {
 
 app.post('/dog-tinder-api/dog', (req, res) => {
   dogObj = req.body;
-  dbUtils.addDogToDatabase(dogObj, () => {})
-  res.send(201);
+  dbUtils.addDogToDatabase(dogObj,  (err,data) => {
+    if(err) {
+      res.status(501).send(err);
+    } else {
+      res.redirect('/');
+    }
+  })
 })
 
 

@@ -5,6 +5,9 @@ import allBreeds from '../../utils/All_Breeds.js'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
+import { Route, Link, Redirect, BrowserRouter as Router } from 'react-router-dom';
+
+
 
 class AddAnimalForm extends React.Component {
   constructor(props){
@@ -57,7 +60,7 @@ class AddAnimalForm extends React.Component {
   }
 
   handleSubmit(event) {
-
+    console.log("handleSubmit called");
     this.setState({zipError: false, phoneError: false, emailError: false, sexError: false, sizeError: false, nameError: false, mixError: false, descriptionError: false, photoError: false, stateError: false, cityError: false, address1Error: false, breedError: false, ageError: false});
 
     var emailCheck = 0;
@@ -137,6 +140,8 @@ class AddAnimalForm extends React.Component {
       shouldPost++
     }
     if(shouldPost === 0) {
+      event.preventDefault();
+
       axios.post('/dog-tinder-api/dog', {
         age: this.state.age,
         animal: this.state.animal,
@@ -156,6 +161,7 @@ class AddAnimalForm extends React.Component {
         size: this.state.size
       }).then((response) => {
         console.log("Inserted dog into DB");
+        this.props.history.push('/');
       })
       .catch(()=> console.log("There was an error submitting this form."));
     }
@@ -403,9 +409,7 @@ class AddAnimalForm extends React.Component {
             <label className="form-group">Phone (xxx-xxx-xxxx)</label>
             <input className="form-control" name="phone" type="text" onChange={this.handleChange}/>
           </div>
-
           <input type="submit" value="Submit" onClick={this.handleSubmit} />
-
         </form>
         {this.state.zipError ? (<div >The zipcode field is invalid, please review</div>) : null}
         {this.state.phoneError ? (<div >The phone field is invalid, please review</div>) : null}
