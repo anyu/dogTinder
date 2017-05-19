@@ -21,6 +21,7 @@ class NavBar extends React.Component {
     };
   this.handleSelect = this.handleSelect.bind(this);
   this.handleZipChange = this.handleZipChange.bind(this);
+  this.breeds = dogBreeds.slice()
   }
 
   handleSelect(e) {
@@ -33,28 +34,27 @@ class NavBar extends React.Component {
     this.setState({
       [name]: value
     }, () => {
-      let breeds = [];
       switch (this.state.animal) {
           case 'dog':
-            breeds = dogBreeds.slice();
+            this.breeds = dogBreeds.slice();
             break;
           case 'cat':
-            breeds = catBreeds.slice();
+            this.breeds = catBreeds.slice();
             break;
           case 'horse':
-            breeds = horseBreeds.slice();
+            this.breeds = horseBreeds.slice();
             break;
           case 'bird':
-            breeds = birdBreeds.slice();
+            this.breeds = birdBreeds.slice();
             break;
           case 'rabbit':
-            breeds = rabbitBreeds.slice();
+            this.breeds = rabbitBreeds.slice();
             break;
           case 'pig':
-            breeds = pigBreeds.slice();
+            this.breeds = pigBreeds.slice();
             break;
           default:
-            console.log('No animal type found');
+            console.log('Breed list not found');
         }
       this.props.submitQuery(this.state);
     });
@@ -71,7 +71,6 @@ class NavBar extends React.Component {
 
   render() {
     let spinner = null;
-    let breeds = dogBreeds.slice();
 
     if(this.props.spinning) {
       spinner = <span>
@@ -83,7 +82,7 @@ class NavBar extends React.Component {
       <div className="NavBar">
         <form onSubmit={this.handleSelect}>
           <label>
-            <select className="animal" name="animal" onChange={this.handleSelect} >
+            <select className="animal" name="animal" onChange={this.handleSelect} style={{ backgroundColor: 'white'}}>
               <option defaultValue="dog">Dog</option>
               <option value="cat">Cat</option>
               <option value="horse">Horse</option>
@@ -94,7 +93,11 @@ class NavBar extends React.Component {
           </label>
 
           <label>
-            <input className="zipcode" placeholder="Zipcode" onChange={this.handleZipChange} />
+            <select className="breed" name="breed" onChange={this.handleSelect} style={{ backgroundColor: 'white'}}>
+              <option defaultValue="breed">Breed</option>
+
+              {this.breeds.map (animal =>  <option key={animal.$t} value={animal.$t} >{animal.$t}</option> )}
+            </select>
           </label>
 
           <label>
@@ -116,13 +119,10 @@ class NavBar extends React.Component {
           </label>
 
           <label>
-            <select className="breed" name="breed" onChange={this.handleSelect} style={{ backgroundColor: 'white'}}>
-              <option defaultValue="breed">Breed</option>
-
-              {breeds.map(animal =>  <option key={animal.$t} value={animal.$t} >{animal.$t}</option> )}
-            </select>
-            {spinner}
+            <input className="zipcode" placeholder="Zipcode" onChange={this.handleZipChange} />
           </label>
+
+            {spinner}
 
         </form>
       </div>

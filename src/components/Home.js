@@ -5,7 +5,7 @@ import axios from 'axios';
 import DisplayDog from './DisplayDog';
 import Kennel from './Kennel.js';
 import NavBar from './NavBar';
-import DogNotFound from './DogNotFound';
+import PetNotFound from './PetNotFound';
 import Cookies from 'universal-cookie';
 import uniqBy from 'lodash.uniqby';
 import uniq from 'lodash.uniq';
@@ -24,7 +24,7 @@ class Home extends React.Component {
       featuredDog: '',
       allDogs: '',
       animalList: [],
-      dogNotFound: false,
+      petNotFound: false,
       shelterContactInfo: '',
       spinning: false,
       kennelSpinning: false
@@ -130,18 +130,18 @@ class Home extends React.Component {
       let data = response.data;
       this.setState({spinning: false})
       if(response.data.length === 0) {
-        this.setState({dogNotFound: true });
+        this.setState({petNotFound: true });
       } else {
         this.setState({
           featuredDog: data[0],
           allDogs: data,
-          dogNotFound: false,
+          petNotFound: false,
           index: 0
         })
       }
     })
     .catch(error => {
-      this.setState({dogNotFound: true });
+      this.setState({petNotFound: true });
     });
   };
 
@@ -193,14 +193,14 @@ class Home extends React.Component {
 
   render() {
       var loginPrompt;
-      var addDogs;
+      var addPets;
       if(cookies.get('loggedIn') === "true") {
         loginPrompt = <div>Welcome Back <a href="/logout">Logout</a></div>;
-        addDogs = <Link to="/addAnimalForm" className="add-dog-link">Add animals looking for a home</Link>
+        addPets = <Link to="/addAnimalForm" className="add-dog-link">Add animals looking for a home</Link>
 
       } else {
         loginPrompt = <FacebookLogin />;
-        addDogs = null;
+        addPets = null;
       }
 
       var kennelComponent;
@@ -232,10 +232,10 @@ class Home extends React.Component {
               nextDog={this.nextDog}
               previousDog={this.previousDog}
               saveDoggy={this.saveDoggy}
-              dogNotFound={this.state.dogNotFound}
+              petNotFound={this.state.petNotFound}
             />
           : null}
-          {addDogs}
+          {addPets}
           {kennelComponent}
         </div>
 
