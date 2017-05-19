@@ -78,7 +78,7 @@ exports.removePetFinderAnimalFromUsersList = (FacebookID, petFinderId, callback)
       })
     })
   })
-}; 
+};
 
 exports.removeDogTinderAnimalFromUsersList = (FacebookID, id, callback) => {
   helper.checkForUserList(FacebookID, (result) => {

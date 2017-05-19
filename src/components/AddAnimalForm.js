@@ -138,7 +138,24 @@ class AddAnimalForm extends React.Component {
     }
     if(shouldPost === 0) {
       axios.post('/dog-tinder-api/dog', {
-        data: this.state
+        age: this.state.age,
+        animal: this.state.animal,
+        breed: this.state.breed,
+        address1: this.state.address1,
+        address2: this.state.address2,
+        city: this.state.city,
+        email: this.state.email,
+        phone: this.state.phone,
+        state: this.state.state,
+        zip: this.state.zip,
+        description: this.state.description,
+        photo: this.state.photo,
+        mix: this.state.mix,
+        name: this.state.name,
+        sex: this.state.sex,
+        size: this.state.size
+      }).then((response) => {
+        console.log("Inserted dog into DB");
       })
       .catch(()=> console.log("There was an error submitting this form."));
     }
@@ -216,7 +233,7 @@ class AddAnimalForm extends React.Component {
       <div className="dog-form-container"><h1>Dog Tinder</h1>
         <h3>Add a Pet to DogTinder</h3>
         <p>Please describe the animal and enter your shelter's contact information.</p>
-        <form onSubmit={this.handleSubmit} >
+        <form>
           <div className="form-group dog-form-short">
             <label className="form-group">Dog's Name</label>
             <input className="form-control" name="name" type="text" onChange={this.handleChange}/>
@@ -255,7 +272,7 @@ class AddAnimalForm extends React.Component {
                 {this.state.uploadedFileCloudinaryUrl === '' ? null :
                 <div id="uploadedPic">
                   <img src={this.state.uploadedFileCloudinaryUrl} />
-                    <button onClick={ ()=> this.recognizeImage(this.state.uploadedFileCloudinaryUrl) }>I'm a stray. Identify me!!</button>
+                    <button type="button" onClick={ ()=> this.recognizeImage(this.state.uploadedFileCloudinaryUrl) }>I'm a stray. Identify me!!</button>
                   </div>
                   }
                 </div>
@@ -386,22 +403,24 @@ class AddAnimalForm extends React.Component {
             <label className="form-group">Phone (xxx-xxx-xxxx)</label>
             <input className="form-control" name="phone" type="text" onChange={this.handleChange}/>
           </div>
-          <input type="submit" value="Submit"/>
+
+          <input type="submit" value="Submit" onClick={this.handleSubmit} />
+
         </form>
-        {this.state.zipError ? (<div >The zipcode field is not correct, please review</div>) : null}
-        {this.state.phoneError ? (<div >The phone field is not correct, please review</div>) : null}
-        {this.state.emailError ? (<div >The email field is not correct, please review</div>) : null}
-        {this.state.sexError ? (<div >The sex field is not correct, please review</div>) : null}
-        {this.state.sizeError ? (<div >The size field is not correct, please review</div>) : null}
-        {this.state.nameError ? (<div >The name field is not correct, please review</div>) : null}
-        {this.state.mixError ? (<div >The mix field is not correct, please review</div>) : null}
-        {this.state.descriptionError ? (<div >The description field is not correct, please review</div>) : null}
-        {this.state.photoError ? (<div >The photo field is not correct, please review</div>) : null}
-        {this.state.stateError ? (<div >The state field is not correct, please review</div>) : null}
-        {this.state.cityError ? (<div >The city field is not correct, please review</div>) : null}
-        {this.state.address1Error ? (<div >The address1 field is not correct, please review</div>) : null}
-        {this.state.breedError ? (<div >The breed field is not correct, please review</div>) : null}
-        {this.state.ageError ? (<div >The city field is not correct, please review</div>) : null}
+        {this.state.zipError ? (<div >The zipcode field is invalid, please review</div>) : null}
+        {this.state.phoneError ? (<div >The phone field is invalid, please review</div>) : null}
+        {this.state.emailError ? (<div >The email field is invalid, please review</div>) : null}
+        {this.state.sexError ? (<div >The sex field is required, please review</div>) : null}
+        {this.state.sizeError ? (<div >The size field is required, please review</div>) : null}
+        {this.state.nameError ? (<div >The name field is required, please review</div>) : null}
+        {this.state.mixError ? (<div >The mix field is required, please review</div>) : null}
+        {this.state.descriptionError ? (<div >The description field is required, please review</div>) : null}
+        {this.state.photoError ? (<div >The photo field is required, please review</div>) : null}
+        {this.state.stateError ? (<div >The state field is required, please review</div>) : null}
+        {this.state.cityError ? (<div >The city field is required, please review</div>) : null}
+        {this.state.address1Error ? (<div >The address1 field is required, please review</div>) : null}
+        {this.state.breedError ? (<div >The breed field is required, please review</div>) : null}
+        {this.state.ageError ? (<div >The city field is required, please review</div>) : null}
       </div>
     );
   }
