@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
-import allBreeds from '../../utils/All_Breeds.js'
+import allBreeds from '../../utils/DogBreeds.js'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
@@ -224,7 +224,7 @@ class AddAnimalForm extends React.Component {
   }
 
   imageRecogMatchTooBroad(match) {
-    var broadMatches = ["dog", "mammal", "vertebrate","dog breed"];
+    var broadMatches = ["dog", "mammal", "vertebrate","dog breed", "bird", "chicken", "fauna"];
 
     if (!broadMatches.includes(match)) {
       return true;

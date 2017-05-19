@@ -47,7 +47,6 @@ class Home extends React.Component {
     });
     axios.get('/dog-tinder-api?location=07470')
       .then(response => {
-        // console.log('componentwillmount response.data', response.data)
         return response.data;
       })
       .then(data => {
@@ -93,7 +92,6 @@ class Home extends React.Component {
 
     let idArray = uniq(tempArray.map(function(item){return parseInt(item.id.$t)}));
 
-    console.log('idArray: ', idArray)
     if(cookies.get('loggedIn') === "true") {
       axios({
         method: 'post',
@@ -104,8 +102,6 @@ class Home extends React.Component {
         cookies.set('animalList', JSON.stringify(idArray), { path: '/'});
       })
       .catch(() => {
-        // this.setState({animalList: uniq(tempArray)});
-        // cookies.set('animalList', JSON.stringify(idArray), { path: '/'});
         console.log("There was an error saving the list to the database")
       })
     } else {
@@ -121,6 +117,7 @@ class Home extends React.Component {
     this.setState({spinning: true});
     let data = {};
     data.location = theState.zipcode;
+    if (theState.animal !== '') { data.animal = theState.animal; }
     if (theState.breed !== '') { data.breed = theState.breed; }
     if (theState.age !== '') { data.age = theState.age; }
     if (theState.sex !== '') { data.sex = theState.sex; }
@@ -129,7 +126,7 @@ class Home extends React.Component {
       params: data
     })
     .then(response => {
-      console.log('handle search query response data:', response.data);
+
       let data = response.data;
       this.setState({spinning: false})
       if(response.data.length === 0) {
@@ -222,11 +219,12 @@ class Home extends React.Component {
       return (
         <div className="homepage">
           <div className="title-logo">
-            <div className="title">Dog Tinder</div>
+            <div className="title">Pet Tinder</div>
             <img className="dog-logo" src="images/cuteDog.svg"/>
             <div className="facebook-login">{loginPrompt}</div>
           </div>
           {this.state.allDogs != '' && <NavBar submitQuery={this.handleSearchQuery} dogs={this.state.allDogs} spinning={this.state.spinning}/>}
+
           {this.state.featuredDog !== '' ?
             <DisplayDog
               dog={this.state.featuredDog}

@@ -14,7 +14,7 @@ class Kennel extends React.Component {
   this.clickDogName = this.clickDogName.bind(this);
   this.showProfile = this.showProfile.bind(this);
   }
-  
+
   clickDogName() {
     this.setState({nameClicked: !this.state.nameClicked})
   }
@@ -28,7 +28,7 @@ class Kennel extends React.Component {
   render() {
     return (
       <div>
-        {this.props.animalList.length === 0 ? <div></div> : <div className="page-header-kennel">My Kennel</div> }
+        {this.props.animalList.length === 0 ? <div></div> : <div className="page-header-kennel">My Favorites</div> }
         <div style={{display: 'flex', flexWrap: 'nowrap'}}>
           <ul className="media-list" style={{flexWrap: 'nowrap'}}>{this.props.animalList.map((dog) => {
             return <li className="media dog-box" key={dog.id.$t} style={{display: 'flex', justifyContent: 'flex-start'}}>
@@ -42,12 +42,12 @@ class Kennel extends React.Component {
                    </li>
             })}
           </ul>
-          {this.state.nameClicked ? 
+          {this.state.nameClicked ?
             <div>
-              <KennelDogProfile dog={this.state.selectedDog} removeDog={this.props.removeDog} clickName={this.clickDogName}/> 
+              <KennelDogProfile dog={this.state.selectedDog} removeDog={this.props.removeDog} clickName={this.clickDogName}/>
             </div>
-            : <div></div> 
-          }    
+            : <div></div>
+          }
         </div>
       </div>
       );

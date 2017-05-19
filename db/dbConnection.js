@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(process.env.DB_DATABASENAME , process.env.DB_USERNAME, process.env.DB_PASSWORD, {host: process.env.DB_HOST, dialect: 'postgres', underscored: true});
-const breeds = require('../utils/All_Breeds.js');
+const breeds = require('../utils/DogBreeds.js');
 
 const User = sequelize.define('user', {
   id: {
@@ -26,7 +26,7 @@ const AnimalList = sequelize.define('animalList', {
     allowNull: true
   }
 });
-    
+
 const Animal = sequelize.define('animal', {
   id: {
     type: Sequelize.INTEGER,
@@ -73,7 +73,7 @@ const Breed = sequelize.define('breed', {
     allowNull: false,
     primaryKey: true
   },
-  breed: Sequelize.STRING  
+  breed: Sequelize.STRING
 });
 
 AnimalList.belongsTo(User);
@@ -118,9 +118,4 @@ sequelize.sync().then(() => {
       addToDatabase(breedStrings);
     }
   });
-}) 
-
-
-
-
-
+})

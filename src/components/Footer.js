@@ -9,7 +9,7 @@ class Footer extends React.Component {
   render() {
     return (
     <div>
-      DogTinder
+      PetTinder
       <br />
       San Francisco, CA
     </div>);

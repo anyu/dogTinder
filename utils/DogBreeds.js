@@ -1,4 +1,4 @@
-var breeds = [
+var dogBreeds = [
         {
           "$t": "Mixed Breed"
         },
@@ -748,4 +748,4 @@ var breeds = [
         }
       ]
 
-module.exports = breeds;
+module.exports = dogBreeds;
