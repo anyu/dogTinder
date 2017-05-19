@@ -224,7 +224,7 @@ class AddAnimalForm extends React.Component {
   }
 
   imageRecogMatchTooBroad(match) {
-    var broadMatches = ["dog", "mammal", "vertebrate","dog breed", "bird", "chicken", "fauna"];
+    var broadMatches = ["dog", "mammal", "vertebrate","dog breed", "bird", "chicken", "fauna", "beak", "bird of prey"];
 
     if (!broadMatches.includes(match)) {
       return true;
@@ -236,8 +236,8 @@ class AddAnimalForm extends React.Component {
       var qualityImageRecogMatches = this.state.imageRecogMatch.filter(this.imageRecogMatchTooBroad);
     }
     return (
-      <div className="dog-form-container"><h1>Dog Tinder</h1>
-        <h3>Add a Pet to DogTinder</h3>
+      <div className="dog-form-container"><h1>Pet Tinder</h1>
+        <h3>Add an animal to PetTinder</h3>
         <p>Please describe the animal and enter your shelter's contact information.</p>
         <form>
           <div className="form-group dog-form-short">

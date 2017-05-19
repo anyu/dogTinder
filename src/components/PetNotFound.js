@@ -1,6 +1,6 @@
 import React from 'react';
 
-class DogNotFound extends React.Component {
+class PetNotFound extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,4 +14,4 @@ class DogNotFound extends React.Component {
   }
 }
 
-export default DogNotFound;
+export default PetNotFound;
