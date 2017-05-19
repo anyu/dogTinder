@@ -322,6 +322,7 @@ textarea {
 
 #imageMatchResult {
   font-size: 18px;
+  width: 600px;
 }
 
 #imageMatchResult span {

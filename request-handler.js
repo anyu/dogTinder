@@ -49,6 +49,9 @@ app.get('/', (request, response) => {
   response.sendFile(path.resolve(__dirname, "./public/_index.html"));
 });
 
+app.get('/addAnimalForm', (request, response) => {
+  response.sendFile(path.resolve(__dirname, "./public/_index.html"));
+})
 
 // signup/login
 app.get('/auth/facebook',
