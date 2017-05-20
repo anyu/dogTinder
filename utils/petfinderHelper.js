@@ -65,17 +65,16 @@ function removeSmallPics(resultArray) {
 }
 
 exports.fetchAnimals = (params, callback) => {
-  console.log("fetch animals params", params);
   let querystring = {
     key: process.env.PET_API_KEY,
     format: 'json',
+    animal: 'dog', // default initial results to dogs
     count: 50
   }
 
   for(var key in params){
     querystring[key] = params[key]
   }
-  console.log("queryString", querystring);
   request({
     method: 'get',
     url: 'http://api.petfinder.com/pet.find',

@@ -50,6 +50,7 @@ class Home extends React.Component {
         return response.data;
       })
       .then(data => {
+        console.log("featueddog,", data)
         this.setState({
           featuredDog: data[0],
           allDogs: data
