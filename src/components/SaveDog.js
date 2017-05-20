@@ -1,7 +1,7 @@
 import React from 'react';
 
 class SaveDog extends React.Component {
-  constructor(props) { 
+  constructor(props) {
     super(props);
     this.state = {
     };
@@ -9,7 +9,7 @@ class SaveDog extends React.Component {
   render() {
     return (
       <button type="button" className="btn btn-default btn-lg save-dog" style={{"color": "#ef4a2d", marginBottom: '-30px', opacity: 0.6}} onClick={() =>{this.props.saveDog(this.props.currentDog)}} >
-        <span className="glyphicon glyphicon-heart" aria-hidden="true"></span> Add to kennel
+        <span className="glyphicon glyphicon-heart" aria-hidden="true"></span> Add to favorites
       </button>
     );
   }

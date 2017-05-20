@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import SaveDog from './SaveDog';
-import DogNotFound from './DogNotFound';
+import PetNotFound from './PetNotFound';
 
 class DisplayDog extends React.Component {
   constructor(props) {
@@ -10,9 +10,9 @@ class DisplayDog extends React.Component {
 
   render() {
 
-  if (this.props.dogNotFound) {
+  if (this.props.petNotFound) {
     return (
-      <DogNotFound />
+      <PetNotFound />
     );
   }
 
@@ -26,7 +26,7 @@ class DisplayDog extends React.Component {
               <img className="img-fluid"  src={this.props.dog.media.photos.photo[0]}/>
               <div className="carousel-caption">
               <SaveDog currentDog={this.props.dog} saveDog={this.props.saveDoggy} style={{zIndex: 5}}/>
-            </div>  
+            </div>
           </div>
         </div>
         <a className="carousel-control left" role="button" onClick={() => this.props.previousDog()}>

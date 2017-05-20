@@ -5,7 +5,7 @@ import axios from 'axios';
 import DisplayDog from './DisplayDog';
 import Kennel from './Kennel.js';
 import NavBar from './NavBar';
-import DogNotFound from './DogNotFound';
+import PetNotFound from './PetNotFound';
 import Cookies from 'universal-cookie';
 import uniqBy from 'lodash.uniqby';
 import uniq from 'lodash.uniq';
@@ -24,7 +24,7 @@ class Home extends React.Component {
       featuredDog: '',
       allDogs: '',
       animalList: [],
-      dogNotFound: false,
+      petNotFound: false,
       shelterContactInfo: '',
       spinning: false,
       kennelSpinning: false
@@ -47,10 +47,10 @@ class Home extends React.Component {
     });
     axios.get('/dog-tinder-api?location=07470')
       .then(response => {
-        // console.log('componentwillmount response.data', response.data)
         return response.data;
       })
       .then(data => {
+        console.log("featueddog,", data)
         this.setState({
           featuredDog: data[0],
           allDogs: data
@@ -93,7 +93,6 @@ class Home extends React.Component {
 
     let idArray = uniq(tempArray.map(function(item){return parseInt(item.id.$t)}));
 
-    console.log('idArray: ', idArray)
     if(cookies.get('loggedIn') === "true") {
       axios({
         method: 'post',
@@ -104,8 +103,6 @@ class Home extends React.Component {
         cookies.set('animalList', JSON.stringify(idArray), { path: '/'});
       })
       .catch(() => {
-        // this.setState({animalList: uniq(tempArray)});
-        // cookies.set('animalList', JSON.stringify(idArray), { path: '/'});
         console.log("There was an error saving the list to the database")
       })
     } else {
@@ -121,6 +118,7 @@ class Home extends React.Component {
     this.setState({spinning: true});
     let data = {};
     data.location = theState.zipcode;
+    if (theState.animal !== '') { data.animal = theState.animal; }
     if (theState.breed !== '') { data.breed = theState.breed; }
     if (theState.age !== '') { data.age = theState.age; }
     if (theState.sex !== '') { data.sex = theState.sex; }
@@ -129,22 +127,22 @@ class Home extends React.Component {
       params: data
     })
     .then(response => {
-      console.log('handle search query response data:', response.data);
+
       let data = response.data;
       this.setState({spinning: false})
       if(response.data.length === 0) {
-        this.setState({dogNotFound: true });
+        this.setState({petNotFound: true });
       } else {
         this.setState({
           featuredDog: data[0],
           allDogs: data,
-          dogNotFound: false,
+          petNotFound: false,
           index: 0
         })
       }
     })
     .catch(error => {
-      this.setState({dogNotFound: true });
+      this.setState({petNotFound: true });
     });
   };
 
@@ -196,14 +194,14 @@ class Home extends React.Component {
 
   render() {
       var loginPrompt;
-      var addDogs;
+      var addPets;
       if(cookies.get('loggedIn') === "true") {
         loginPrompt = <div>Welcome Back <a href="/logout">Logout</a></div>;
-        addDogs = <Link to="/addAnimalForm" className="add-dog-link">Add animals looking for a home</Link>
+        addPets = <Link to="/addAnimalForm" className="add-dog-link">Add animals looking for a home</Link>
 
       } else {
         loginPrompt = <FacebookLogin />;
-        addDogs = null;
+        addPets = null;
       }
 
       var kennelComponent;
@@ -222,11 +220,12 @@ class Home extends React.Component {
       return (
         <div className="homepage">
           <div className="title-logo">
-            <div className="title">Dog Tinder</div>
+            <div className="title">Pet Tinder</div>
             <img className="dog-logo" src="images/cuteDog.svg"/>
             <div className="facebook-login">{loginPrompt}</div>
           </div>
           {this.state.allDogs != '' && <NavBar submitQuery={this.handleSearchQuery} dogs={this.state.allDogs} spinning={this.state.spinning}/>}
+
           {this.state.featuredDog !== '' ?
             <DisplayDog
               dog={this.state.featuredDog}
@@ -234,10 +233,10 @@ class Home extends React.Component {
               nextDog={this.nextDog}
               previousDog={this.previousDog}
               saveDoggy={this.saveDoggy}
-              dogNotFound={this.state.dogNotFound}
+              petNotFound={this.state.petNotFound}
             />
           : null}
-          {addDogs}
+          {addPets}
           {kennelComponent}
         </div>
 

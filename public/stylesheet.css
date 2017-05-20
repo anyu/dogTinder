@@ -217,6 +217,14 @@ textarea {
   padding-bottom: 45px;
 }
 
+.animal, .breed, .gender, .age {
+  font-weight: 400;
+  height: 32px;
+  border-color: #ccc;
+  background-color: white;
+  margin-right: 17px;
+}
+
 .zipcode {
   order: 1;
   font-weight: 400;
@@ -227,32 +235,6 @@ textarea {
   border-style: solid;
   border-width: thin;
   border-radius: 4px;
-  margin-right: 17px;
-}
-
-.gender {
-  order: 2;
-  font-weight: 400;
-  height: 32px;
-  border-color: #ccc;
-  background-color: white;
-  margin-right: 17px;
-
-}
-
-.breed {
-  order: 3;
-  font-weight: 400;
-  height: 32px;
-  border-color: #ccc;
-  margin-right: 17px;
-}
-
-.age {
-  order: 4;
-  font-weight: 400;
-  height: 32px;
-  border-color: #ccc;
   margin-right: 17px;
 }
 

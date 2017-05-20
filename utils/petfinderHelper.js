@@ -65,32 +65,34 @@ function removeSmallPics(resultArray) {
 }
 
 exports.fetchAnimals = (params, callback) => {
-
   let querystring = {
     key: process.env.PET_API_KEY,
     format: 'json',
-    animal: 'dog',
+    animal: 'dog', // default initial results to dogs
     count: 50
   }
 
   for(var key in params){
     querystring[key] = params[key]
   }
-
   request({
     method: 'get',
     url: 'http://api.petfinder.com/pet.find',
     qs: querystring
   }, function(error, response, body){
-    
+
     if(JSON.parse(body).petfinder.header.status.code.$t !== "100") {
       callback([]);
     } else {
       let petArray = JSON.parse(body).petfinder.pets;
       // if the petArray has no pets:
+      // pet list comes back here - successfully
+      // console.log("Object.keys(petArray)", petArray["pet"]);
+
       if (Object.keys(petArray).length === 0 && petArray.constructor === Object) {
         callback([]);
       } else {
+
         body = removeSmallPics(body);
         callback(body);
       }
@@ -134,7 +136,3 @@ exports.getList = (list, callback) => {
   getRecursive(list, emptyArr);
 
 }
-
-
-
-

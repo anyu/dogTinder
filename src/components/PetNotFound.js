@@ -1,17 +1,17 @@
 import React from 'react';
 
-class DogNotFound extends React.Component {
+class PetNotFound extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
     <div>
-      <h4>No dog matches search results!</h4>
+      <h4>No animal matches search results!</h4>
       <img className="sad-dog" src="images/droopy.jpg"/>
-    </div> 
+    </div>
     );
   }
 }
 
-export default DogNotFound;
+export default PetNotFound;

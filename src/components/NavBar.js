@@ -1,30 +1,61 @@
 import React from 'react';
-import breeds from '../../utils/All_Breeds.js'
+import dogBreeds from '../../utils/DogBreeds.js';
+import catBreeds from '../../utils/CatBreeds.js';
+import horseBreeds from '../../utils/HorseBreeds.js';
+import birdBreeds from '../../utils/BirdBreeds.js';
+import rabbitBreeds from '../../utils/RabbitBreeds.js';
+import pigBreeds from '../../utils/PigBreeds.js';
+
 //import NumericInput from 'react-numeric-input';
-import { Button, DropdownButton, MenuItem, Navbar, FormGroup, FormControl } from 'react-bootstrap'; 
+import { Button, DropdownButton, MenuItem, Navbar, FormGroup, FormControl } from 'react-bootstrap';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       zipcode: '',
+      animal: '',
       breed: '',
       age: '',
       sex: ''
     };
   this.handleSelect = this.handleSelect.bind(this);
   this.handleZipChange = this.handleZipChange.bind(this);
+  this.breeds = dogBreeds.slice()
   }
- 
 
-  handleSelect(event) {
-    event.preventDefault();
-    const name = event.target.name;
-    let value = event.target.value;
+  handleSelect(e) {
+    e.preventDefault();
+    const name = e.target.name;
+    let value = e.target.value;
     if (value === "Breed" || value === "Age" || value === "Gender") {
       value = '';
     }
-    this.setState({[name]: value}, () => {
+    this.setState({
+      [name]: value
+    }, () => {
+      switch (this.state.animal) {
+          case 'dog':
+            this.breeds = dogBreeds.slice();
+            break;
+          case 'cat':
+            this.breeds = catBreeds.slice();
+            break;
+          case 'horse':
+            this.breeds = horseBreeds.slice();
+            break;
+          case 'bird':
+            this.breeds = birdBreeds.slice();
+            break;
+          case 'rabbit':
+            this.breeds = rabbitBreeds.slice();
+            break;
+          case 'pig':
+            this.breeds = pigBreeds.slice();
+            break;
+          default:
+            console.log('Breed list not found');
+        }
       this.props.submitQuery(this.state);
     });
   }
@@ -40,6 +71,7 @@ class NavBar extends React.Component {
 
   render() {
     let spinner = null;
+
     if(this.props.spinning) {
       spinner = <span>
           <i className="fa fa-circle-o-notch fa-spin fa-fw"></i>
@@ -50,7 +82,22 @@ class NavBar extends React.Component {
       <div className="NavBar">
         <form onSubmit={this.handleSelect}>
           <label>
-            <input className="zipcode" placeholder="Zipcode" onChange={this.handleZipChange} />              
+            <select className="animal" name="animal" onChange={this.handleSelect} style={{ backgroundColor: 'white'}}>
+              <option defaultValue="dog">Dog</option>
+              <option value="cat">Cat</option>
+              <option value="horse">Horse</option>
+              <option value="bird">Bird</option>
+              <option value="rabbit">Rabbit</option>
+              <option value="pig">Pig</option>
+            </select>
+          </label>
+
+          <label>
+            <select className="breed" name="breed" onChange={this.handleSelect} style={{ backgroundColor: 'white'}}>
+              <option defaultValue="breed">Breed</option>
+
+              {this.breeds.map (animal =>  <option key={animal.$t} value={animal.$t} >{animal.$t}</option> )}
+            </select>
           </label>
 
           <label>
@@ -72,16 +119,14 @@ class NavBar extends React.Component {
           </label>
 
           <label>
-            <select className="breed" name="breed" onChange={this.handleSelect} style={{ backgroundColor: 'white'}}>
-              <option defaultValue="breed">Breed</option>
-              {breeds.map(dog =>  <option key={dog.$t} value={dog.$t} >{dog.$t}</option> )}
-            </select>
-            {spinner}
+            <input className="zipcode" placeholder="Zipcode" onChange={this.handleZipChange} />
           </label>
+
+            {spinner}
 
         </form>
       </div>
-      
+
     );
   }
 }
