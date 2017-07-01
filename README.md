@@ -1,12 +1,7 @@
-# dogTinder
+# Pet Match
 
-> DogTinder helps find homes for rescue animals.
+> Pet Match helps find homes for rescue animals.
 
-## Team
-
-  - Scott Moschella
-  - Yujin Chung
-  - Joshua Stagner
 
 ## Table of Contents
 
@@ -18,9 +13,6 @@
 1. [Roadmap](#roadmap)
 1. [Contributing](#contributing)
 
-## Usage
-
-> Visit http://dogtinder.herokuapp.com
 
 ## Requirements
 
@@ -59,12 +51,3 @@ DB_PASSWORD=blank
 DB_DATABASENAME=dogTinder // set this when you do 'dbcreate -U username databasename
 REDIS_URL=(do ** heroku config:get REDISCLOUD_URL ** to get this url)
 ```
-
-### Roadmap
-
-View the project roadmap [here](roadmap.md)
-
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
