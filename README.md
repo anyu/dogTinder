@@ -2,6 +2,11 @@
 
 > Pet Match helps find homes for rescue animals.
 
+## Team		
+ - Scott Moschella		
+ - Yujin Chung		
+ - Joshua Stagner
+ - An Yu (forked contributor)
 
 ## Table of Contents
 
